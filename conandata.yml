@@ -1,4 +1,9 @@
 sources:
-  "1.0.0":
-    url: "https://github.com/libauthor/libname"
-    sha256: "98f6f57aab0a424469619ed3047728f0d3901ce8f0dea919c11e7966d807e870"
+  "1.16.0":
+    url: "https://gitlab.freedesktop.org/gstreamer/gst-plugins-good/-/archive/1.16.0/gst-plugins-good-1.16.0.tar.bz2"
+    sha256: "8ecb5c3e0ba76de837ae4885ade95b2ba39464205ca43b44a66f53ed7c6b4731"
+
+patches:
+  "1.16.0":
+    - patch_file: "patches/0001-lame_meson.patch"
+      base_path: "source_subfolder"

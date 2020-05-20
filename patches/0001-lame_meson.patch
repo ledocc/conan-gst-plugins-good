@@ -1,0 +1,21 @@
+--- a/ext/lame/meson.build	2019-04-19 01:23:18.000000000 +0200
++++ b/ext/lame/meson.build	2020-05-15 10:12:43.272564675 +0200
+@@ -1,16 +1,6 @@
+-lame_option = get_option('lame')
+-lame_dep = cc.find_library('mp3lame', required : lame_option)
+-have_lame = lame_dep.found()
++lame_dep = dependency('libmp3lame', required : get_option('lame'))
+ 
+-# TODO: https://github.com/mesonbuild/meson/issues/3940
+-if have_lame
+-  have_lame = cc.has_header_symbol('lame/lame.h', 'lame_init')
+-  if not have_lame and lame_option.enabled()
+-    error('Found libmp3lame but lame.h was not usable')
+-  endif
+-endif
+-
+-if have_lame
++if lame_dep.found()
+   lame_extra_c_args = []
+   if cc.has_header_symbol('lame/lame.h', 'lame_set_VBR_quality')
+     lame_extra_c_args += ['-DHAVE_LAME_SET_VBR_QUALITY']

@@ -4,10 +4,17 @@ import os
 
 class TestPackageConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake"
+    generators = ("cmake", "virtualrunenv")
 
     def build(self):
         cmake = CMake(self)
+
+        options = []
+        for name, value in self.options["gst-plugins-good"].items():
+            if name.startswith("with_") and value:
+                options.append( name.upper().replace("-","_") )
+        cmake.definitions["GST_PLUGINS_GOOD_OPTIONS"] = ";".join(options)
+
         cmake.configure()
         cmake.build()
 
